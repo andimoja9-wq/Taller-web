@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perfil - Andrés Martin Jojoa Moncayo</title>
+  <style>
+    :root {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --accent: #2563eb; /* Azul corporativo */
+      --accent-hover: #1d4ed8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, sans-serif; }
+    body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; scroll-behavior: smooth; }
+    header { position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; }
+    .logo { font-weight: 700; font-size: 1.25rem; color: var(--accent); }
+    nav a { color: var(--text-main); text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.2s; }
+    nav a:hover { color: var(--accent); }
+    .container { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem; }
+    section { margin-bottom: 4rem; background: var(--card-bg); padding: 2.5rem; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+    h1, h2, h3 { color: #0f172a; margin-bottom: 1rem; }
+    
+    .hero { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2rem; }
+    
+    /* Espacio temporal para la foto */
+    .profile-img { 
+      width: 180px; 
+      height: 180px; 
+      border-radius: 50%; 
+      object-fit: cover; 
+      border: 4px solid var(--accent); 
+      background-color: #cbd5e1; /* Fondo gris temporal */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; background-color: var(--accent); color: #fff; font-weight: 600; padding: 0.8rem 1.5rem; border-radius: 8px; text-decoration: none; border: none; cursor: pointer; transition: all 0.2s; gap: 0.5rem; margin: 0.5rem; }
+    .btn:hover { background-color: var(--accent-hover); transform: translateY(-2px); }
+    
+    .contact-buttons { display: flex; flex-wrap: wrap; justify-content: center; margin-top: 1rem; }
+    
+    /* Estilos del Minijuego (Triqui) */
+    .game-section { text-align: center; }
+    .board { display: grid; grid-template-columns: repeat(3, 80px); gap: 5px; justify-content: center; margin: 20px auto; }
+    .cell { width: 80px; height: 80px; background: #f1f5f9; border: 2px solid #cbd5e1; font-size: 2.5rem; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--accent); border-radius: 8px; transition: background 0.2s; font-weight: bold; }
+    .cell:hover { background: #e2e8f0; }
+    .cell.taken { cursor: not-allowed; }
+    #game-status { font-weight: 600; font-size: 1.2rem; min-height: 2rem; color: #0f172a; margin-bottom: 1rem; }
+    
+    footer { text-align: center; padding: 2rem; color: var(--text-muted); border-top: 1px solid #e2e8f0; }
+    @media (min-width: 600px) { .hero { flex-direction: row; text-align: left; } .contact-buttons { justify-content: flex-start; } }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Portafolio Profesional</div>
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#perfil">Mi Perfil</a>
+      <a href="#juego">Minijuego</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <div class="container">
+
+    <section id="inicio">
+      <div class="hero">
+        <!-- Requisito de imagen: Aquí está el recuadro listo para tu foto -->
+        <div class="profile-img" id="foto-perfil">
+          [Espacio para tu foto]
+        </div>
+        <div>
+          <h1>Andrés Martín Jojoa Moncayo</h1>
+          <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 1.2rem;">
+            Estudiante de Administración de Empresas (10mo semestre).
+          </p>
+          <div class="contact-buttons">
+            <!-- Botones interactivos -->
+            <a href="mailto:andresmartinjojoa@gmail.com" class="btn">✉️ Enviar Correo</a>
+            <a href="tel:+573136918539" class="btn">📞 Llamar: 313 691 8539</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="perfil">
+      <h2>Experiencia y Práctica Profesional</h2>
+      <p>
+        Actualmente me encuentro cursando mi décimo semestre de Administración de Empresas y estoy desarrollando mi práctica profesional en <strong>MotorKia</strong>. 
+      </p>
+      <br>
+      <p>
+        Mi trabajo se enfoca en el <strong>Taller de Colisión</strong>, donde aplico mis conocimientos administrativos para optimizar procesos, gestionar recursos y mejorar la eficiencia operativa del área.
+      </p>
+    </section>
+
+    <section id="juego" class="game-section">
+      <h2>🎮 Minijuego: Triqui (Tres en línea)</h2>
+      <p style="color: var(--text-muted);">Punto extra del taller: Juega contra la máquina. ¡Tú eres la "X"!</p>
+      
+      <div id="game-status">Tu turno...</div>
+      <div class="board" id="board">
+        <div class="cell" onclick="makeMove(0)"></div>
+        <div class="cell" onclick="makeMove(1)"></div>
+        <div class="cell" onclick="makeMove(2)"></div>
+        <div class="cell" onclick="makeMove(3)"></div>
+        <div class="cell" onclick="makeMove(4)"></div>
+        <div class="cell" onclick="makeMove(5)"></div>
+        <div class="cell" onclick="makeMove(6)"></div>
+        <div class="cell" onclick="makeMove(7)"></div>
+        <div class="cell" onclick="makeMove(8)"></div>
+      </div>
+      <button class="btn" onclick="resetGame()" style="margin-top: 1rem;">Reiniciar Juego</button>
+    </section>
+
+    <section id="contacto">
+      <h2>Contacto Directo</h2>
+      <p>Si deseas comunicarte conmigo para temas académicos o profesionales, mis canales están abiertos:</p>
+      <ul style="margin-top: 1rem; margin-left: 1.5rem; color: var(--text-muted);">
+        <li><strong>Correo:</strong> <a href="mailto:andresmartinjojoa@gmail.com" style="color: var(--accent);">andresmartinjojoa@gmail.com</a></li>
+        <li><strong>Teléfono / WhatsApp:</strong> <a href="tel:+573136918539" style="color: var(--accent);">313 691 8539</a></li>
+      </ul>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>© 2026 - Andrés Martín Jojoa Moncayo | Proyecto de Infraestructura de Grandes Volúmenes de Datos</p>
+  </footer>
+
+  <!-- Lógica del Triqui -->
+  <script>
+    let board = ["", "", "", "", "", "", "", "", ""];
+    let gameActive = true;
+    const statusDisplay = document.getElementById('game-status');
+    const cells = document.querySelectorAll('.cell');
+
+    const winningConditions = [
+      [0, 1, 2], [3, 4, 5], [6, 7, 8], // Filas
+      [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columnas
+      [0, 4, 8], [2, 4, 6]             // Diagonales
+    ];
+
+    function makeMove(index) {
+      if (board[index] !== "" || !gameActive) return;
+      
+      // Turno del jugador
+      board[index] = "X";
+      cells[index].innerText = "X";
+      cells[index].classList.add("taken");
+      
+      if (checkWin("X")) {
+        statusDisplay.innerText = "🎉 ¡Ganaste!";
+        gameActive = false;
+        return;
+      }
+      
+      if (!board.includes("")) {
+        statusDisplay.innerText = "Empate.";
+        gameActive = false;
+        return;
+      }
+
+      // Turno de la máquina
+      statusDisplay.innerText = "Pensando...";
+      setTimeout(machineMove, 500);
+    }
+
+    function machineMove() {
+      if (!gameActive) return;
+      let emptySpots = board.map((val, index) => val === "" ? index : null).filter(val => val !== null);
+      let randomSpot = emptySpots[Math.floor(Math.random() * emptySpots.length)];
+      
+      board[randomSpot] = "O";
+      cells[randomSpot].innerText = "O";
+      cells[randomSpot].classList.add("taken");
+      cells[randomSpot].style.color = "#ef4444"; // Color rojo para la O
+
+      if (checkWin("O")) {
+        statusDisplay.innerText = "🤖 ¡La máquina gana!";
+        gameActive = false;
+        return;
+      }
+      
+      statusDisplay.innerText = "Tu turno...";
+    }
+
+    function checkWin(player) {
+      return winningConditions.some(condition => {
+        return condition.every(index => board[index] === player);
+      });
+    }
+
+    function resetGame() {
+      board = ["", "", "", "", "", "", "", "", ""];
+      gameActive = true;
+      statusDisplay.innerText = "Tu turno...";
+      cells.forEach(cell => {
+        cell.innerText = "";
+        cell.classList.remove("taken");
+        cell.style.color = "var(--accent)";
+      });
+    }
+  </script>
+</body>
+</html>
