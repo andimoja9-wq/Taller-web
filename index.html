@@ -3,70 +3,99 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Perfil - Andrés Martin Jojoa Moncayo</title>
+  <title>Andrés Martin Jojoa Moncayo - Portafolio</title>
   <style>
     :root {
-      --bg-color: #f8fafc;
-      --card-bg: #ffffff;
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --accent: #2563eb; /* Azul corporativo */
-      --accent-hover: #1d4ed8;
+      --text-main: #ffffff;
+      --text-muted: #cbd5e1;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, sans-serif; }
-    body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; scroll-behavior: smooth; }
-    header { position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; }
-    .logo { font-weight: 700; font-size: 1.25rem; color: var(--accent); }
-    nav a { color: var(--text-main); text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.2s; }
+    
+    /* Fondo animado moderno */
+    body { 
+      background: linear-gradient(-45deg, #0f172a, #1e1b4b, #0f172a, #020617);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: var(--text-main); 
+      line-height: 1.6; 
+      scroll-behavior: smooth; 
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header { position: sticky; top: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; }
+    .logo { font-weight: 700; font-size: 1.25rem; color: var(--accent); letter-spacing: 1px; }
+    nav a { color: var(--text-muted); text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
     nav a:hover { color: var(--accent); }
-    .container { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem; }
-    section { margin-bottom: 4rem; background: var(--card-bg); padding: 2.5rem; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-    h1, h2, h3 { color: #0f172a; margin-bottom: 1rem; }
+    
+    .container { max-width: 950px; margin: 0 auto; padding: 4rem 1.5rem; }
+    
+    /* Estilo Glassmorphism para las secciones */
+    section { 
+      margin-bottom: 4rem; 
+      background: rgba(255, 255, 255, 0.03); 
+      backdrop-filter: blur(10px);
+      padding: 2.5rem; 
+      border-radius: 20px; 
+      border: 1px solid rgba(255, 255, 255, 0.1); 
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    h2 { color: #fff; margin-bottom: 1.5rem; font-size: 1.8rem; border-bottom: 2px solid rgba(56, 189, 248, 0.3); padding-bottom: 0.5rem; display: inline-block; }
     
     .hero { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2rem; }
     
-    /* Espacio temporal para la foto */
+    /* Foto con efecto Neón */
     .profile-img { 
-      width: 180px; 
-      height: 180px; 
+      width: 200px; 
+      height: 200px; 
       border-radius: 50%; 
       object-fit: cover; 
-      border: 4px solid var(--accent); 
-      background-color: #cbd5e1; /* Fondo gris temporal */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #64748b;
-      font-size: 0.9rem;
-      text-align: center;
-      padding: 1rem;
+      border: 3px solid var(--accent); 
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
+      transition: transform 0.3s ease;
     }
+    .profile-img:hover { transform: scale(1.05); box-shadow: 0 0 35px rgba(56, 189, 248, 0.8); }
 
-    .btn { display: inline-flex; align-items: center; justify-content: center; background-color: var(--accent); color: #fff; font-weight: 600; padding: 0.8rem 1.5rem; border-radius: 8px; text-decoration: none; border: none; cursor: pointer; transition: all 0.2s; gap: 0.5rem; margin: 0.5rem; }
-    .btn:hover { background-color: var(--accent-hover); transform: translateY(-2px); }
+    /* Botones ultra interactivos */
+    .btn { display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--accent), #2563eb); color: #fff; font-weight: 600; padding: 0.8rem 1.8rem; border-radius: 30px; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); gap: 0.5rem; margin: 0.5rem; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); }
+    .btn:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 8px 25px rgba(56, 189, 248, 0.6); }
     
-    .contact-buttons { display: flex; flex-wrap: wrap; justify-content: center; margin-top: 1rem; }
-    
+    /* Habilidades */
+    .skills-container { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; justify-content: center; }
+    .skill-tag { background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 0.5rem 1rem; border-radius: 20px; color: var(--accent); font-weight: 500; transition: all 0.3s; }
+    .skill-tag:hover { background: rgba(56, 189, 248, 0.2); transform: translateY(-2px); }
+
     /* Estilos del Minijuego (Triqui) */
     .game-section { text-align: center; }
-    .board { display: grid; grid-template-columns: repeat(3, 80px); gap: 5px; justify-content: center; margin: 20px auto; }
-    .cell { width: 80px; height: 80px; background: #f1f5f9; border: 2px solid #cbd5e1; font-size: 2.5rem; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--accent); border-radius: 8px; transition: background 0.2s; font-weight: bold; }
-    .cell:hover { background: #e2e8f0; }
-    .cell.taken { cursor: not-allowed; }
-    #game-status { font-weight: 600; font-size: 1.2rem; min-height: 2rem; color: #0f172a; margin-bottom: 1rem; }
+    .board { display: grid; grid-template-columns: repeat(3, 90px); gap: 8px; justify-content: center; margin: 25px auto; }
+    .cell { width: 90px; height: 90px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); font-size: 3rem; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--accent); border-radius: 12px; transition: all 0.2s; font-weight: bold; text-shadow: 0 0 10px rgba(56,189,248,0.5); }
+    .cell:hover { background: rgba(255,255,255,0.1); transform: scale(1.05); }
+    .cell.taken { cursor: not-allowed; transform: none; }
+    #game-status { font-weight: 600; font-size: 1.3rem; min-height: 2rem; color: #fff; margin-bottom: 1rem; }
     
-    footer { text-align: center; padding: 2rem; color: var(--text-muted); border-top: 1px solid #e2e8f0; }
-    @media (min-width: 600px) { .hero { flex-direction: row; text-align: left; } .contact-buttons { justify-content: flex-start; } }
+    footer { text-align: center; padding: 2rem; color: var(--text-muted); border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; font-size: 0.9rem; }
+    @media (min-width: 768px) { .hero { flex-direction: row; text-align: left; gap: 4rem; } .skills-container { justify-content: flex-start; } }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="logo">Portafolio Profesional</div>
+    <div class="logo">AMJM.</div>
     <nav>
       <a href="#inicio">Inicio</a>
-      <a href="#perfil">Mi Perfil</a>
+      <a href="#perfil">Perfil & Habilidades</a>
       <a href="#juego">Minijuego</a>
       <a href="#contacto">Contacto</a>
     </nav>
@@ -76,40 +105,42 @@
 
     <section id="inicio">
       <div class="hero">
-        <!-- Requisito de imagen: Aquí está el recuadro listo para tu foto -->
-        <div class="profile-img" id="foto-perfil">
-          [Espacio para tu foto]
-        </div>
+        <!-- Requisito de imagen: Aquí está lista para cargar la foto desde tu GitHub -->
+        <img src="mifoto.jpg" alt="Foto de Andrés Jojoa" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=Andrés+Jojoa&background=0D8ABC&color=fff&size=200'" />
         <div>
           <h1>Andrés Martín Jojoa Moncayo</h1>
-          <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 1.2rem;">
-            Estudiante de Administración de Empresas (10mo semestre).
+          <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 1.5rem;">
+            Estudiante de Administración de Empresas (10mo semestre) apasionado por la eficiencia operativa y los datos.
           </p>
-          <div class="contact-buttons">
-            <!-- Botones interactivos -->
-            <a href="mailto:andresmartinjojoa@gmail.com" class="btn">✉️ Enviar Correo</a>
-            <a href="tel:+573136918539" class="btn">📞 Llamar: 313 691 8539</a>
+          <div>
+            <a href="mailto:andresmartinjojoa@gmail.com" class="btn">✉️ andresmartinjojoa@gmail.com</a>
+            <a href="tel:+573136918539" class="btn">📞 313 691 8539</a>
           </div>
         </div>
       </div>
     </section>
 
     <section id="perfil">
-      <h2>Experiencia y Práctica Profesional</h2>
-      <p>
-        Actualmente me encuentro cursando mi décimo semestre de Administración de Empresas y estoy desarrollando mi práctica profesional en <strong>MotorKia</strong>. 
+      <h2>Experiencia y Habilidades</h2>
+      <p style="margin-bottom: 1.5rem; color: var(--text-muted);">
+        Actualmente desarrollando mi práctica profesional en el <strong>Taller de Colisión de MotorKia</strong>, donde aplico visión estratégica para optimizar procesos administrativos, gestionar recursos de manera eficiente y reducir los cuellos de botella operativos en la solicitud de autopartes.
       </p>
-      <br>
-      <p>
-        Mi trabajo se enfoca en el <strong>Taller de Colisión</strong>, donde aplico mis conocimientos administrativos para optimizar procesos, gestionar recursos y mejorar la eficiencia operativa del área.
-      </p>
+      
+      <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: #fff;">Herramientas y Competencias</h3>
+      <div class="skills-container">
+        <span class="skill-tag">Optimización de Procesos</span>
+        <span class="skill-tag">Análisis de Datos</span>
+        <span class="skill-tag">Gestión Administrativa</span>
+        <span class="skill-tag">Python (Pandas / Matplotlib)</span>
+        <span class="skill-tag">Liderazgo</span>
+      </div>
     </section>
 
     <section id="juego" class="game-section">
-      <h2>🎮 Minijuego: Triqui (Tres en línea)</h2>
-      <p style="color: var(--text-muted);">Punto extra del taller: Juega contra la máquina. ¡Tú eres la "X"!</p>
+      <h2>🎮 Minijuego: Triqui vs IA</h2>
+      <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Punto extra del taller: Intenta ganarle a la máquina. ¡Tú eres la "X"!</p>
       
-      <div id="game-status">Tu turno...</div>
+      <div id="game-status">Tu turno... ¡Haz tu movimiento!</div>
       <div class="board" id="board">
         <div class="cell" onclick="makeMove(0)"></div>
         <div class="cell" onclick="makeMove(1)"></div>
@@ -121,22 +152,13 @@
         <div class="cell" onclick="makeMove(7)"></div>
         <div class="cell" onclick="makeMove(8)"></div>
       </div>
-      <button class="btn" onclick="resetGame()" style="margin-top: 1rem;">Reiniciar Juego</button>
-    </section>
-
-    <section id="contacto">
-      <h2>Contacto Directo</h2>
-      <p>Si deseas comunicarte conmigo para temas académicos o profesionales, mis canales están abiertos:</p>
-      <ul style="margin-top: 1rem; margin-left: 1.5rem; color: var(--text-muted);">
-        <li><strong>Correo:</strong> <a href="mailto:andresmartinjojoa@gmail.com" style="color: var(--accent);">andresmartinjojoa@gmail.com</a></li>
-        <li><strong>Teléfono / WhatsApp:</strong> <a href="tel:+573136918539" style="color: var(--accent);">313 691 8539</a></li>
-      </ul>
+      <button class="btn" onclick="resetGame()" style="margin-top: 1.5rem; padding: 0.6rem 1.5rem; font-size: 0.9rem;">🔄 Reiniciar Partida</button>
     </section>
 
   </div>
 
   <footer>
-    <p>© 2026 - Andrés Martín Jojoa Moncayo | Proyecto de Infraestructura de Grandes Volúmenes de Datos</p>
+    <p>© 2026 - Andrés Martín Jojoa Moncayo | Infraestructura de Grandes Volúmenes de Datos</p>
   </footer>
 
   <!-- Lógica del Triqui -->
@@ -147,34 +169,25 @@
     const cells = document.querySelectorAll('.cell');
 
     const winningConditions = [
-      [0, 1, 2], [3, 4, 5], [6, 7, 8], // Filas
-      [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columnas
-      [0, 4, 8], [2, 4, 6]             // Diagonales
+      [0, 1, 2], [3, 4, 5], [6, 7, 8],
+      [0, 3, 6], [1, 4, 7], [2, 5, 8],
+      [0, 4, 8], [2, 4, 6]
     ];
 
     function makeMove(index) {
       if (board[index] !== "" || !gameActive) return;
       
-      // Turno del jugador
       board[index] = "X";
       cells[index].innerText = "X";
       cells[index].classList.add("taken");
+      cells[index].style.color = "#38bdf8";
+      cells[index].style.textShadow = "0 0 15px rgba(56,189,248,0.8)";
       
-      if (checkWin("X")) {
-        statusDisplay.innerText = "🎉 ¡Ganaste!";
-        gameActive = false;
-        return;
-      }
-      
-      if (!board.includes("")) {
-        statusDisplay.innerText = "Empate.";
-        gameActive = false;
-        return;
-      }
+      if (checkWin("X")) { statusDisplay.innerText = "🎉 ¡Excelente jugada, ganaste!"; gameActive = false; return; }
+      if (!board.includes("")) { statusDisplay.innerText = "🤝 ¡Es un empate!"; gameActive = false; return; }
 
-      // Turno de la máquina
-      statusDisplay.innerText = "Pensando...";
-      setTimeout(machineMove, 500);
+      statusDisplay.innerText = "🤖 La máquina está pensando...";
+      setTimeout(machineMove, 600);
     }
 
     function machineMove() {
@@ -185,31 +198,25 @@
       board[randomSpot] = "O";
       cells[randomSpot].innerText = "O";
       cells[randomSpot].classList.add("taken");
-      cells[randomSpot].style.color = "#ef4444"; // Color rojo para la O
+      cells[randomSpot].style.color = "#f43f5e"; 
+      cells[randomSpot].style.textShadow = "0 0 15px rgba(244,63,94,0.8)";
 
-      if (checkWin("O")) {
-        statusDisplay.innerText = "🤖 ¡La máquina gana!";
-        gameActive = false;
-        return;
-      }
-      
-      statusDisplay.innerText = "Tu turno...";
+      if (checkWin("O")) { statusDisplay.innerText = "👾 La máquina gana esta vez."; gameActive = false; return; }
+      statusDisplay.innerText = "Tu turno... ¡Haz tu movimiento!";
     }
 
     function checkWin(player) {
-      return winningConditions.some(condition => {
-        return condition.every(index => board[index] === player);
-      });
+      return winningConditions.some(condition => condition.every(index => board[index] === player));
     }
 
     function resetGame() {
       board = ["", "", "", "", "", "", "", "", ""];
       gameActive = true;
-      statusDisplay.innerText = "Tu turno...";
+      statusDisplay.innerText = "Tu turno... ¡Haz tu movimiento!";
       cells.forEach(cell => {
         cell.innerText = "";
         cell.classList.remove("taken");
-        cell.style.color = "var(--accent)";
+        cell.style.textShadow = "none";
       });
     }
   </script>
