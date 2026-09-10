@@ -60,11 +60,11 @@
     @keyframes pulse { 0% { transform: scale(1); opacity: 0.2; } 100% { transform: scale(1.05); opacity: 0.4; } }
 
     /* Botones Profesionales */
-    .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 0.9rem 2rem; border-radius: 8px; font-weight: 600; font-size: 1rem; text-decoration: none; cursor: pointer; transition: all 0.3s; border: 1px solid transparent; }
+    .btn-group { display: flex; flex-direction: column; gap: 0.8rem; align-items: flex-start; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 0.9rem 2rem; border-radius: 8px; font-weight: 600; font-size: 1rem; text-decoration: none; cursor: pointer; transition: all 0.3s; border: 1px solid transparent; width: fit-content; }
     .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 0 20px var(--accent-glow); }
     .btn-primary:hover { background: #0284c7; transform: translateY(-3px); box-shadow: 0 5px 25px var(--accent-glow); }
-    .btn-outline { background: transparent; color: #fff; border: 1px solid var(--card-border); backdrop-filter: blur(5px); }
+    .btn-outline { background: transparent; color: #fff; border: 1px solid var(--card-border); backdrop-filter: blur(5px); margin-top: 0.5rem; }
     .btn-outline:hover { border-color: var(--accent); background: rgba(14, 165, 233, 0.1); transform: translateY(-3px); }
 
     /* Tarjetas de Proyectos y Experiencia */
@@ -93,10 +93,10 @@
 
     @media (max-width: 850px) {
       .hero { grid-template-columns: 1fr; text-align: center; }
-      .btn-group { justify-content: center; }
+      .btn-group { align-items: center; }
       h1 { font-size: 2.5rem; }
       .profile-container { order: -1; }
-      nav { display: none; /* Simplificado para móviles */ }
+      nav { display: none; }
     }
   </style>
 </head>
@@ -107,7 +107,7 @@
     <nav>
       <a href="#inicio">Inicio</a>
       <a href="#experiencia">Experiencia</a>
-      <a href="#analitica">Analítica</a>
+      <a href="#analitica">Habilidades</a>
       <a href="#juego">Minijuego</a>
     </nav>
   </header>
@@ -122,24 +122,26 @@
           Soy Andrés Martín Jojoa Moncayo, estudiante de décimo semestre de Administración de Empresas. Combino la gestión organizacional con herramientas cuantitativas y tecnológicas para optimizar el rendimiento corporativo.
         </p>
         <div class="btn-group">
-          <!-- Requisito: Botones interactivos -->
+          <!-- Botones interactivos azules en lista -->
           <a href="mailto:andresmartinjojoa@gmail.com" class="btn btn-primary">
-            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-            Contactar
+            ✉️ andresmartinjojoa@gmail.com
+          </a>
+          <a href="tel:+573136918539" class="btn btn-primary">
+            📞 313 691 8539
           </a>
           <a href="#experiencia" class="btn btn-outline">Ver Proyectos</a>
         </div>
       </div>
       <div class="profile-container">
         <div class="profile-glow"></div>
-        <!-- Requisito: Imagen (Dejamos el espacio exacto donde irá tu foto) -->
+        <!-- Requisito: Imagen -->
         <img id="foto-perfil" src="AQUI_IRA_EL_LINK_DE_TU_FOTO" alt="Andrés Jojoa" class="profile-img" onerror="this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80'" />
       </div>
     </section>
 
     <!-- SECCIÓN: EXPERIENCIA Y PROYECTOS -->
     <section id="experiencia" class="reveal">
-      <h2>Ejecución Profesional</h2>
+      <h2>Ejecución Profesional y Personal</h2>
       <div class="grid">
         <div class="card">
           <div class="card-icon">⚙️</div>
@@ -150,10 +152,10 @@
         </div>
         
         <div class="card">
-          <div class="card-icon">📈</div>
-          <h3>Modelos Predictivos y E-commerce</h3>
+          <div class="card-icon">🎬</div>
+          <h3>Cine y Estética Digital</h3>
           <p style="color: var(--text-muted); font-size: 0.95rem;">
-            Aplicación de métricas financieras apoyadas en herramientas como emuladores de cálculo científico (fx-991). Uso de métricas predictivas para plataformas de comercio electrónico y evaluación de viabilidad.
+            Más allá de la administración, soy un entusiasta del cine (especialmente los géneros de terror y suspenso como <i>La noche del demonio</i>) y disfruto explorando plataformas para encontrar la personalización estética perfecta de mis espacios digitales y setups.
           </p>
         </div>
 
@@ -169,14 +171,13 @@
 
     <!-- SECCIÓN: HABILIDADES TÉCNICAS -->
     <section id="analitica" class="reveal">
-      <h2>Toolkit & Habilidades</h2>
+      <h2>Habilidades</h2>
       <p style="color: var(--text-muted); margin-bottom: 2rem;">Integración de conceptos de administración tradicional con procesamiento moderno de datos e inteligencia de mercados.</p>
       
       <div style="background: var(--card-glass); border: 1px solid var(--card-border); padding: 2rem; border-radius: 16px;">
         <h3 style="color: #fff; margin-bottom: 1rem; font-size: 1.1rem;">Análisis Cuantitativo y Python</h3>
         <div class="skills-wrapper" style="margin-bottom: 2rem;">
           <span class="tag">Python</span>
-          <span class="tag">Pandas (Manejo de DataFrames)</span>
           <span class="tag">Matplotlib (Visualización)</span>
           <span class="tag">Cálculo de Estadísticas de Ventas</span>
           <span class="tag">Tendencias de Ingresos</span>
@@ -194,7 +195,7 @@
 
     <!-- SECCIÓN: MINIJUEGO -->
     <section id="juego" class="reveal" style="text-align: center;">
-      <h2>Algoritmo vs Humano (Punto Extra)</h2>
+      <h2>Algoritmo vs Humano</h2>
       <p style="color: var(--text-muted); margin-bottom: 2rem;">Evalúa la lógica de respuesta del algoritmo en este entorno de Triqui.</p>
       
       <div class="score-board">
@@ -242,7 +243,7 @@
       }
     }
     window.addEventListener("scroll", reveal);
-    reveal(); // Trigger al cargar
+    reveal();
 
     /* EFECTO NAVBAR AL HACER SCROLL */
     window.addEventListener('scroll', () => {
@@ -298,7 +299,6 @@
     function machineMove() {
       if (!gameActive) return;
       
-      // IA básica: Elige un espacio vacío al azar
       let emptySpots = board.map((val, index) => val === "" ? index : null).filter(val => val !== null);
       let randomSpot = emptySpots[Math.floor(Math.random() * emptySpots.length)];
       
