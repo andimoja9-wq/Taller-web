@@ -6,7 +6,8 @@
   <title>Andrés Jojoa | Portafolio Analítico y Administrativo</title>
   <style>
     :root {
-      --bg-dark: #070a13;
+      /* Modo Oscuro (Por defecto) */
+      --bg-color: #070a13;
       --card-glass: rgba(255, 255, 255, 0.04);
       --card-border: rgba(255, 255, 255, 0.08);
       --text-main: #f8fafc;
@@ -14,34 +15,52 @@
       --accent: #0ea5e9;
       --accent-glow: rgba(14, 165, 233, 0.5);
       --accent-secondary: #8b5cf6;
+      --nav-bg: rgba(7, 10, 19, 0.8);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', 'Segoe UI', sans-serif; }
-    
-    body { 
-      background-color: var(--bg-dark); 
-      background-image: 
-        radial-gradient(circle at 15% 50%, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
-      color: var(--text-main); 
-      line-height: 1.7; 
-      overflow-x: hidden;
-      scroll-behavior: smooth;
+    /* Modo Claro */
+    [data-theme="light"] {
+      --bg-color: #f1f5f9;
+      --card-glass: rgba(255, 255, 255, 0.8);
+      --card-border: rgba(0, 0, 0, 0.1);
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --accent-glow: rgba(14, 165, 233, 0.3);
+      --nav-bg: rgba(255, 255, 255, 0.9);
     }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', 'Segoe UI', sans-serif; cursor: none; /* Oculta cursor por defecto en desktop */ }
+    
+    body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.7; overflow-x: hidden; scroll-behavior: smooth; transition: background-color 0.5s ease, color 0.5s ease; }
+
+    /* Cursor Personalizado (Solo Desktop) */
+    .cursor-dot { width: 8px; height: 8px; background-color: var(--accent); border-radius: 50%; position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); z-index: 9999; pointer-events: none; }
+    .cursor-outline { width: 40px; height: 40px; border: 2px solid var(--accent-glow); border-radius: 50%; position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); z-index: 9998; pointer-events: none; transition: width 0.2s, height 0.2s, background-color 0.2s; }
+    @media (hover: none) and (pointer: coarse) { * { cursor: auto; } .cursor-dot, .cursor-outline { display: none; } } /* En móviles vuelve al normal */
+
+    /* Fondo de Partículas */
+    #canvas-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
+
+    /* Barra de progreso de lectura */
+    #progress-bar { position: fixed; top: 0; left: 0; height: 4px; background: linear-gradient(to right, var(--accent), var(--accent-secondary)); width: 0%; z-index: 1001; transition: width 0.1s; }
 
     /* Animaciones de entrada (Scroll Reveal) */
     .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
     .reveal.active { opacity: 1; transform: translateY(0); }
 
-    header { position: fixed; top: 0; width: 100%; background: rgba(7, 10, 19, 0.8); backdrop-filter: blur(15px); border-bottom: 1px solid var(--card-border); padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; transition: all 0.3s ease; }
+    header { position: fixed; top: 0; width: 100%; background: var(--nav-bg); backdrop-filter: blur(15px); border-bottom: 1px solid var(--card-border); padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; transition: all 0.3s ease; }
     .logo { font-weight: 800; font-size: 1.5rem; background: linear-gradient(to right, var(--accent), var(--accent-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
-    nav a { color: var(--text-muted); text-decoration: none; margin-left: 2rem; font-weight: 500; font-size: 0.95rem; transition: color 0.3s; position: relative; }
+    nav { display: flex; align-items: center; }
+    nav a { color: var(--text-muted); text-decoration: none; margin-left: 2rem; font-weight: 600; font-size: 0.95rem; transition: color 0.3s; position: relative; }
     nav a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background-color: var(--accent); transition: width 0.3s; }
-    nav a:hover { color: #fff; }
+    nav a:hover { color: var(--text-main); }
     nav a:hover::after { width: 100%; }
 
-    .container { max-width: 1100px; margin: 0 auto; padding: 8rem 2rem 4rem; }
+    /* Interruptor Tema Claro/Oscuro */
+    .theme-switch { margin-left: 2rem; background: var(--card-glass); border: 1px solid var(--card-border); padding: 0.5rem; border-radius: 50%; cursor: none; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+    .theme-switch:hover { background: var(--accent-glow); transform: rotate(15deg); }
 
+    .container { max-width: 1100px; margin: 0 auto; padding: 7rem 2rem 4rem; }
     section { margin-bottom: 6rem; }
     h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 1rem; font-weight: 800; }
     h1 span { color: var(--accent); }
@@ -56,145 +75,187 @@
     .profile-img { width: 320px; height: 320px; border-radius: 20px; object-fit: cover; border: 1px solid var(--card-border); box-shadow: 0 20px 50px rgba(0,0,0,0.5); position: relative; z-index: 2; transition: transform 0.4s; }
     .profile-img:hover { transform: translateY(-10px); }
     .profile-glow { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, var(--accent), var(--accent-secondary)); filter: blur(40px); opacity: 0.3; border-radius: 20px; z-index: 1; animation: pulse 4s infinite alternate; }
-
     @keyframes pulse { 0% { transform: scale(1); opacity: 0.2; } 100% { transform: scale(1.05); opacity: 0.4; } }
 
     /* Botones Profesionales */
-    .btn-group { display: flex; flex-direction: column; gap: 0.8rem; align-items: flex-start; }
-    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 0.9rem 2rem; border-radius: 8px; font-weight: 600; font-size: 1rem; text-decoration: none; cursor: pointer; transition: all 0.3s; border: 1px solid transparent; width: fit-content; }
+    .btn-group { display: flex; flex-direction: column; gap: 0.8rem; align-items: flex-start; margin-top: 1rem; }
+    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 0.9rem 2rem; border-radius: 8px; font-weight: 600; font-size: 1rem; text-decoration: none; transition: all 0.3s; border: 1px solid transparent; width: fit-content; }
     .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 0 20px var(--accent-glow); }
     .btn-primary:hover { background: #0284c7; transform: translateY(-3px); box-shadow: 0 5px 25px var(--accent-glow); }
-    .btn-outline { background: transparent; color: #fff; border: 1px solid var(--card-border); backdrop-filter: blur(5px); margin-top: 0.5rem; }
+    .btn-outline { background: transparent; color: var(--text-main); border: 1px solid var(--card-border); backdrop-filter: blur(5px); }
     .btn-outline:hover { border-color: var(--accent); background: rgba(14, 165, 233, 0.1); transform: translateY(-3px); }
+    .btn-cv { background: linear-gradient(45deg, var(--accent-secondary), var(--accent)); color: #fff; box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4); margin-bottom: 1.5rem; }
+    .btn-cv:hover { transform: translateY(-3px) scale(1.02); }
 
-    /* Tarjetas de Proyectos y Experiencia */
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-    .card { background: var(--card-glass); border: 1px solid var(--card-border); backdrop-filter: blur(10px); padding: 2rem; border-radius: 16px; transition: transform 0.3s, border-color 0.3s; }
-    .card:hover { transform: translateY(-5px); border-color: rgba(14, 165, 233, 0.4); }
-    .card-icon { font-size: 2rem; margin-bottom: 1rem; background: rgba(14, 165, 233, 0.1); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 12px; color: var(--accent); }
-    .card h3 { font-size: 1.3rem; margin-bottom: 0.8rem; color: #fff; }
+    /* Carrusel Infinito (Marquee) */
+    .marquee-container { width: 100%; overflow: hidden; background: var(--card-glass); border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); padding: 1rem 0; margin-bottom: 5rem; display: flex; }
+    .marquee-content { display: flex; white-space: nowrap; animation: marquee 25s linear infinite; gap: 4rem; padding-left: 4rem; font-weight: 700; font-size: 1.2rem; color: var(--accent); opacity: 0.8; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* Línea de Tiempo (Experiencia) */
+    .timeline { position: relative; max-width: 900px; margin: 0 auto; }
+    .timeline::before { content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 2px; background: var(--card-border); }
+    .timeline-item { position: relative; padding-left: 60px; margin-bottom: 3rem; }
+    .timeline-dot { position: absolute; left: 11px; top: 10px; width: 20px; height: 20px; background: var(--bg-color); border: 4px solid var(--accent); border-radius: 50%; box-shadow: 0 0 15px var(--accent-glow); transition: all 0.3s; }
+    .timeline-item:hover .timeline-dot { background: var(--accent); transform: scale(1.3); }
+    .timeline-content { background: var(--card-glass); border: 1px solid var(--card-border); padding: 2rem; border-radius: 16px; transition: transform 0.3s; }
+    .timeline-item:hover .timeline-content { transform: translateX(10px); border-color: rgba(14, 165, 233, 0.4); }
+    .timeline-content h3 { font-size: 1.4rem; color: var(--text-main); margin-bottom: 0.5rem; }
+    .timeline-content p { color: var(--text-muted); font-size: 0.95rem; }
 
     /* Tags de Habilidades */
     .skills-wrapper { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1rem; }
-    .tag { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 0.6rem 1.2rem; border-radius: 30px; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.5px; transition: all 0.3s; }
-    .tag:hover { background: rgba(14, 165, 233, 0.15); border-color: var(--accent); color: var(--accent); transform: scale(1.05); }
+    .tag { background: rgba(14, 165, 233, 0.05); border: 1px solid rgba(14, 165, 233, 0.2); padding: 0.6rem 1.2rem; border-radius: 30px; font-size: 0.9rem; font-weight: 600; transition: all 0.3s; color: var(--text-main); }
+    .tag:hover { background: var(--accent); border-color: var(--accent); color: #fff; transform: scale(1.05) translateY(-3px); box-shadow: 0 10px 20px var(--accent-glow); }
 
     /* Minijuego */
     .game-board { display: grid; grid-template-columns: repeat(3, 100px); gap: 10px; justify-content: center; margin: 2rem 0; perspective: 1000px; }
-    .cell { width: 100px; height: 100px; background: var(--card-glass); border: 1px solid var(--card-border); border-radius: 15px; font-size: 3.5rem; font-weight: 800; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); }
+    .cell { width: 100px; height: 100px; background: var(--card-glass); border: 1px solid var(--card-border); border-radius: 15px; font-size: 3.5rem; font-weight: 800; display: flex; align-items: center; justify-content: center; transition: all 0.2s; box-shadow: inset 0 0 20px rgba(0,0,0,0.2); }
     .cell:hover:not(.taken) { background: rgba(14, 165, 233, 0.1); border-color: var(--accent); transform: translateZ(10px); }
     .cell.x { color: var(--accent); text-shadow: 0 0 15px var(--accent-glow); }
     .cell.o { color: var(--accent-secondary); text-shadow: 0 0 15px rgba(139, 92, 246, 0.5); }
-    
     .score-board { display: flex; justify-content: center; gap: 3rem; margin-bottom: 1.5rem; font-size: 1.2rem; font-weight: 600; }
-    .score-badge { background: rgba(0,0,0,0.3); padding: 0.5rem 1.5rem; border-radius: 8px; border: 1px solid var(--card-border); }
-    
-    footer { text-align: center; padding: 3rem; border-top: 1px solid var(--card-border); color: var(--text-muted); font-size: 0.9rem; margin-top: 4rem; }
+    .score-badge { background: var(--card-glass); padding: 0.5rem 1.5rem; border-radius: 8px; border: 1px solid var(--card-border); }
+
+    /* Botón Flotante (Volver Arriba) */
+    #back-to-top { position: fixed; bottom: 30px; right: 30px; background: var(--accent); color: #fff; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; border: none; opacity: 0; pointer-events: none; transition: all 0.3s; box-shadow: 0 5px 15px var(--accent-glow); z-index: 1000; }
+    #back-to-top.visible { opacity: 1; pointer-events: auto; }
+    #back-to-top:hover { transform: translateY(-5px); background: #0284c7; }
+
+    footer { text-align: center; padding: 3rem; border-top: 1px solid var(--card-border); color: var(--text-muted); font-size: 0.9rem; margin-top: 2rem; background: var(--card-glass); }
 
     @media (max-width: 850px) {
       .hero { grid-template-columns: 1fr; text-align: center; }
-      .btn-group { align-items: center; }
+      .btn-group { align-items: center; width: 100%; }
       h1 { font-size: 2.5rem; }
       .profile-container { order: -1; }
-      nav { display: none; }
+      nav a { display: none; } /* Oculta menú texto en celular, deja el interruptor */
+      .timeline::before { left: 10px; }
+      .timeline-item { padding-left: 40px; }
+      .timeline-dot { left: 1px; }
     }
   </style>
 </head>
 <body>
 
+  <div id="progress-bar"></div>
+  
+  <!-- Cursor interactivo -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+
+  <!-- Fondo de partículas -->
+  <canvas id="canvas-bg"></canvas>
+
   <header id="navbar">
     <div class="logo">A.JOJOA</div>
     <nav>
       <a href="#inicio">Inicio</a>
-      <a href="#experiencia">Experiencia</a>
+      <a href="#experiencia">Trayectoria</a>
       <a href="#analitica">Habilidades</a>
       <a href="#juego">Minijuego</a>
+      <button class="theme-switch" id="theme-btn" title="Cambiar Tema">🌙</button>
     </nav>
   </header>
 
   <div class="container">
-
     <!-- SECCIÓN: INICIO -->
     <section id="inicio" class="hero reveal">
       <div class="hero-text">
-        <h1 id="typewriter">Estrategia Operativa &<br><span>Análisis de Datos</span></h1>
-        <p>
-          Soy Andrés Martín Jojoa Moncayo, estudiante de décimo semestre de Administración de Empresas. Combino la gestión organizacional con herramientas cuantitativas y tecnológicas para optimizar el rendimiento corporativo.
-        </p>
+        <h1>Estrategia Operativa &<br><span>Análisis de Datos</span></h1>
+        <p>Soy Andrés Martín Jojoa Moncayo, estudiante de décimo semestre de Administración de Empresas. Combino la gestión organizacional con herramientas tecnológicas para optimizar el rendimiento corporativo.</p>
         
-        <!-- Etiqueta de Contacto añadida -->
-        <div style="margin-bottom: 0.8rem;">
+        <!-- Botón CV Nuevo -->
+        <a href="#" onclick="alert('Aquí se descargaría tu Hoja de Vida en PDF.')" class="btn btn-cv">
+          📄 Descargar CV Profesional
+        </a>
+
+        <div style="margin-top: 1.5rem; margin-bottom: 0.5rem;">
           <span style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700;">Contacto Directo:</span>
         </div>
         
         <div class="btn-group">
-          <a href="mailto:andresmartinjojoa@gmail.com" class="btn btn-primary">
-            ✉️ andresmartinjojoa@gmail.com
-          </a>
-          <a href="tel:+573136918539" class="btn btn-primary">
-            📞 313 691 8539
-          </a>
-          <a href="#experiencia" class="btn btn-outline" style="margin-top: 0.5rem;">Ver Proyectos</a>
+          <a href="mailto:andresmartinjojoa@gmail.com" class="btn btn-primary">✉️ andresmartinjojoa@gmail.com</a>
+          <a href="tel:+573136918539" class="btn btn-primary">📞 313 691 8539</a>
         </div>
       </div>
       <div class="profile-container">
         <div class="profile-glow"></div>
-        <!-- Requisito: Imagen -->
         <img id="foto-perfil" src="AQUI_IRA_EL_LINK_DE_TU_FOTO" alt="Andrés Jojoa" class="profile-img" onerror="this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80'" />
       </div>
     </section>
+  </div>
 
-    <!-- SECCIÓN: EXPERIENCIA Y PROYECTOS -->
+  <!-- Carrusel Infinito -->
+  <div class="marquee-container reveal">
+    <div class="marquee-content">
+      <span>✦ Administración de Empresas</span>
+      <span>✦ MotorKia Taller de Colisión</span>
+      <span>✦ Análisis Cuantitativo en Python</span>
+      <span>✦ Optimización de Procesos</span>
+      <span>✦ Infraestructura Cloud Vercel</span>
+      <!-- Repetido para el efecto infinito -->
+      <span>✦ Administración de Empresas</span>
+      <span>✦ MotorKia Taller de Colisión</span>
+      <span>✦ Análisis Cuantitativo en Python</span>
+      <span>✦ Optimización de Procesos</span>
+      <span>✦ Infraestructura Cloud Vercel</span>
+    </div>
+  </div>
+
+  <div class="container" style="padding-top: 0;">
+    <!-- SECCIÓN: LÍNEA DE TIEMPO (Experiencia) -->
     <section id="experiencia" class="reveal">
-      <h2>Ejecución Profesional y Personal</h2>
-      <div class="grid">
-        <div class="card">
-          <div class="card-icon">⚙️</div>
-          <h3>Taller de Colisión MotorKia</h3>
-          <p style="color: var(--text-muted); font-size: 0.95rem;">
-            Desarrollo de proyecto de práctica enfocado en la eliminación de cuellos de botella administrativos. Unificación de los procesos de solicitud de repuestos y partes de carrocería, centralizando la consulta de referencias y precios.
-          </p>
-        </div>
+      <h2>Trayectoria y Proyectos</h2>
+      <div class="timeline">
         
-        <!-- Tarjeta de deportes actualizada -->
-        <div class="card">
-          <div class="card-icon">⚽</div>
-          <h3>Deportes y Actividad Física</h3>
-          <p style="color: var(--text-muted); font-size: 0.95rem;">
-            Me gustan mucho los deportes para mantener un equilibrio saludable. Practico fútbol y voleibol de manera regular, lo que me permite mantenerme activo y fortalecer el trabajo en equipo y la disciplina.
-          </p>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Taller de Colisión MotorKia <span>(Práctica Profesional)</span></h3>
+            <p>Proyecto enfocado en la eliminación de cuellos de botella administrativos. Unificación de los procesos de solicitud de repuestos y partes de carrocería, centralizando la consulta de referencias y precios para optimizar la cadena de suministro interna.</p>
+          </div>
         </div>
 
-        <div class="card">
-          <div class="card-icon">☁️</div>
-          <h3>Infraestructura Big Data</h3>
-          <p style="color: var(--text-muted); font-size: 0.95rem;">
-            Despliegue de este portafolio en la nube mediante repositorios Git y arquitecturas serverless en Vercel, asegurando alta disponibilidad.
-          </p>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Infraestructura de Datos en la Nube</h3>
+            <p>Despliegue de arquitecturas digitales. Creación y alojamiento de este portafolio web mediante repositorios en Git y plataformas serverless (Vercel), asegurando alta disponibilidad de la información en línea.</p>
+          </div>
         </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Deportes y Actividad Física</h3>
+            <p>Más allá de lo profesional, mantengo un equilibrio saludable mediante la práctica regular de fútbol y voleibol. Estas disciplinas fortalecen mi enfoque en el trabajo en equipo, la constancia y el liderazgo dinámico.</p>
+          </div>
+        </div>
+
       </div>
     </section>
 
     <!-- SECCIÓN: HABILIDADES TÉCNICAS -->
     <section id="analitica" class="reveal">
-      <h2>Habilidades</h2>
-      <p style="color: var(--text-muted); margin-bottom: 2rem;">Integración de conceptos de administración tradicional con procesamiento moderno de datos e inteligencia de mercados.</p>
+      <h2>Habilidades Estratégicas</h2>
+      <p style="color: var(--text-muted); margin-bottom: 2rem;">Integración de conceptos de administración tradicional con procesamiento moderno de datos.</p>
       
       <div style="background: var(--card-glass); border: 1px solid var(--card-border); padding: 2rem; border-radius: 16px;">
-        <h3 style="color: #fff; margin-bottom: 1rem; font-size: 1.1rem;">Análisis Cuantitativo y Python</h3>
-        <div class="skills-wrapper" style="margin-bottom: 2rem;">
+        <h3 style="color: var(--text-main); margin-bottom: 1rem; font-size: 1.1rem;">Análisis Cuantitativo</h3>
+        <div class="skills-wrapper" style="margin-bottom: 2.5rem;">
           <span class="tag">Python</span>
           <span class="tag">Matplotlib (Visualización)</span>
-          <span class="tag">Cálculo de Estadísticas de Ventas</span>
-          <span class="tag">Tendencias de Ingresos</span>
+          <span class="tag">Estadísticas de Ventas</span>
+          <span class="tag">Proyección de Ingresos</span>
         </div>
 
-        <h3 style="color: #fff; margin-bottom: 1rem; font-size: 1.1rem;">Estrategia y Gestión</h3>
+        <h3 style="color: var(--text-main); margin-bottom: 1rem; font-size: 1.1rem;">Gestión Administrativa</h3>
         <div class="skills-wrapper">
-          <!-- Matrices y Resolución de problemas corregidos -->
           <span class="tag">Matrices Estratégicas</span>
           <span class="tag">Optimización de Recursos</span>
           <span class="tag">Resolución de Problemas</span>
+          <span class="tag">Reducción de Cuellos de Botella</span>
         </div>
       </div>
     </section>
@@ -202,7 +263,7 @@
     <!-- SECCIÓN: MINIJUEGO -->
     <section id="juego" class="reveal" style="text-align: center;">
       <h2>Algoritmo vs Humano</h2>
-      <p style="color: var(--text-muted); margin-bottom: 2rem;">Evalúa la lógica de respuesta del algoritmo en este entorno de Triqui.</p>
+      <p style="color: var(--text-muted); margin-bottom: 2rem;">Evalúa la lógica de respuesta del algoritmo en este entorno clásico de Triqui.</p>
       
       <div class="score-board">
         <div class="score-badge">Tú (X): <span id="score-x" style="color: var(--accent);">0</span></div>
@@ -210,7 +271,7 @@
         <div class="score-badge">IA (O): <span id="score-o" style="color: var(--accent-secondary);">0</span></div>
       </div>
 
-      <h3 id="game-status" style="font-size: 1.5rem; height: 30px; margin-bottom: 1rem; color: #fff;">Tu turno</h3>
+      <h3 id="game-status" style="font-size: 1.5rem; height: 30px; margin-bottom: 1rem; color: var(--text-main);">Tu turno</h3>
       
       <div class="game-board" id="board">
         <div class="cell" onclick="makeMove(0)"></div>
@@ -224,110 +285,155 @@
         <div class="cell" onclick="makeMove(8)"></div>
       </div>
       
-      <button class="btn btn-outline" onclick="resetGame()" style="margin-top: 1rem;">Reiniciar Tablero</button>
+      <button class="btn btn-outline" onclick="resetGame()" style="margin-top: 1rem;">🔄 Reiniciar Tablero</button>
     </section>
-
   </div>
+
+  <button id="back-to-top" onclick="window.scrollTo(0,0)" title="Volver arriba">↑</button>
 
   <footer>
     <p>© 2026 - Proyecto de Infraestructura de Grandes Volúmenes de Datos.</p>
-    <p style="margin-top: 0.5rem; color: rgba(255,255,255,0.3);">Andrés M. Jojoa Moncayo | Desplegado en Vercel</p>
+    <p style="margin-top: 0.5rem; color: var(--text-muted); opacity: 0.7;">Andrés M. Jojoa Moncayo | Desplegado en Vercel</p>
   </footer>
 
-  <!-- Scripts: Lógica del juego y animaciones -->
+  <!-- LÓGICA JAVASCRIPT MASTER -->
   <script>
+    /* 1. CURSOR MAGNÉTICO */
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorOutline = document.querySelector('.cursor-outline');
+    window.addEventListener('mousemove', (e) => {
+      cursorDot.style.left = e.clientX + 'px'; cursorDot.style.top = e.clientY + 'px';
+      cursorOutline.animate({ left: e.clientX + 'px', top: e.clientY + 'px' }, { duration: 500, fill: "forwards" });
+    });
+    // Efecto hover en enlaces
+    document.querySelectorAll('a, button, .cell').forEach(link => {
+      link.addEventListener('mouseover', () => cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)');
+      link.addEventListener('mouseleave', () => cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)');
+    });
+
+    /* 2. TEMA CLARO / OSCURO */
+    const themeBtn = document.getElementById('theme-btn');
+    themeBtn.addEventListener('click', () => {
+      const currentTheme = document.body.getAttribute('data-theme');
+      if (currentTheme === 'light') {
+        document.body.removeAttribute('data-theme'); themeBtn.innerText = '🌙';
+      } else {
+        document.body.setAttribute('data-theme', 'light'); themeBtn.innerText = '☀️';
+      }
+    });
+
+    /* 3. BARRA DE LECTURA Y BOTÓN SUBIR */
+    const progressBar = document.getElementById('progress-bar');
+    const backToTop = document.getElementById('back-to-top');
+    const header = document.getElementById('navbar');
+    
+    window.addEventListener('scroll', () => {
+      // Progreso
+      let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      progressBar.style.width = (winScroll / height) * 100 + "%";
+      
+      // Botón volver arriba
+      if (winScroll > 500) backToTop.classList.add('visible');
+      else backToTop.classList.remove('visible');
+
+      // Navbar
+      if (winScroll > 50) header.style.padding = '0.8rem 5%';
+      else header.style.padding = '1.2rem 5%';
+    });
+
+    /* 4. SCROLL REVEAL (Animaciones al bajar) */
     function reveal() {
       var reveals = document.querySelectorAll(".reveal");
       for (var i = 0; i < reveals.length; i++) {
         var windowHeight = window.innerHeight;
         var elementTop = reveals[i].getBoundingClientRect().top;
-        var elementVisible = 100;
-        if (elementTop < windowHeight - elementVisible) {
-          reveals[i].classList.add("active");
-        }
+        if (elementTop < windowHeight - 100) reveals[i].classList.add("active");
       }
     }
     window.addEventListener("scroll", reveal);
     reveal();
 
-    window.addEventListener('scroll', () => {
-      const header = document.getElementById('navbar');
-      if (window.scrollY > 50) {
-        header.style.background = 'rgba(7, 10, 19, 0.95)';
-        header.style.padding = '0.8rem 5%';
-      } else {
-        header.style.background = 'rgba(7, 10, 19, 0.8)';
-        header.style.padding = '1.2rem 5%';
+    /* 5. FONDO DE PARTÍCULAS (Big Data Effect) */
+    const canvas = document.getElementById('canvas-bg');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+    let particlesArray = [];
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = Math.random() * 1 - 0.5; this.speedY = Math.random() * 1 - 0.5;
       }
-    });
+      update() {
+        this.x += this.speedX; this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      }
+      draw() {
+        ctx.fillStyle = 'rgba(14, 165, 233, 0.3)';
+        ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    function initParticles() {
+      particlesArray = [];
+      for (let i = 0; i < 70; i++) particlesArray.push(new Particle());
+    }
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update(); particlesArray[i].draw();
+        for (let j = i; j < particlesArray.length; j++) {
+          const dx = particlesArray[i].x - particlesArray[j].x;
+          const dy = particlesArray[i].y - particlesArray[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 100) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(14, 165, 233, ${0.1 - distance/1000})`;
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+            ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    initParticles(); animateParticles();
+    window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; initParticles(); });
 
+    /* 6. LÓGICA MINIJUEGO (Triqui) */
     let board = ["", "", "", "", "", "", "", "", ""];
     let gameActive = true;
     let scores = { x: 0, o: 0, tie: 0 };
     const statusDisplay = document.getElementById('game-status');
     const cells = document.querySelectorAll('.cell');
-    
-    const winningConditions = [
-      [0, 1, 2], [3, 4, 5], [6, 7, 8],
-      [0, 3, 6], [1, 4, 7], [2, 5, 8],
-      [0, 4, 8], [2, 4, 6]
-    ];
+    const winningConditions = [ [0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6] ];
 
     function updateScoreDisplay() {
       document.getElementById('score-x').innerText = scores.x;
       document.getElementById('score-o').innerText = scores.o;
       document.getElementById('score-tie').innerText = scores.tie;
     }
-
     function makeMove(index) {
       if (board[index] !== "" || !gameActive) return;
-      
-      board[index] = "X";
-      cells[index].innerText = "X";
-      cells[index].classList.add("taken", "x");
-      
-      if (checkWin("X")) { 
-        statusDisplay.innerText = "¡Victoria!"; 
-        scores.x++; updateScoreDisplay(); gameActive = false; return; 
-      }
-      if (!board.includes("")) { 
-        statusDisplay.innerText = "Empate"; 
-        scores.tie++; updateScoreDisplay(); gameActive = false; return; 
-      }
-
-      statusDisplay.innerText = "Procesando...";
-      setTimeout(machineMove, 500);
+      board[index] = "X"; cells[index].innerText = "X"; cells[index].classList.add("taken", "x");
+      if (checkWin("X")) { statusDisplay.innerText = "¡Victoria!"; scores.x++; updateScoreDisplay(); gameActive = false; return; }
+      if (!board.includes("")) { statusDisplay.innerText = "Empate"; scores.tie++; updateScoreDisplay(); gameActive = false; return; }
+      statusDisplay.innerText = "Procesando..."; setTimeout(machineMove, 500);
     }
-
     function machineMove() {
       if (!gameActive) return;
-      
       let emptySpots = board.map((val, index) => val === "" ? index : null).filter(val => val !== null);
       let randomSpot = emptySpots[Math.floor(Math.random() * emptySpots.length)];
-      
-      board[randomSpot] = "O";
-      cells[randomSpot].innerText = "O";
-      cells[randomSpot].classList.add("taken", "o");
-
-      if (checkWin("O")) { 
-        statusDisplay.innerText = "Algoritmo Gana"; 
-        scores.o++; updateScoreDisplay(); gameActive = false; return; 
-      }
+      board[randomSpot] = "O"; cells[randomSpot].innerText = "O"; cells[randomSpot].classList.add("taken", "o");
+      if (checkWin("O")) { statusDisplay.innerText = "Algoritmo Gana"; scores.o++; updateScoreDisplay(); gameActive = false; return; }
       statusDisplay.innerText = "Tu turno";
     }
-
-    function checkWin(player) {
-      return winningConditions.some(condition => condition.every(index => board[index] === player));
-    }
-
+    function checkWin(player) { return winningConditions.some(condition => condition.every(index => board[index] === player)); }
     function resetGame() {
-      board = ["", "", "", "", "", "", "", "", ""];
-      gameActive = true;
-      statusDisplay.innerText = "Tu turno";
-      cells.forEach(cell => {
-        cell.innerText = "";
-        cell.classList.remove("taken", "x", "o");
-      });
+      board = ["", "", "", "", "", "", "", "", ""]; gameActive = true; statusDisplay.innerText = "Tu turno";
+      cells.forEach(cell => { cell.innerText = ""; cell.classList.remove("taken", "x", "o"); });
     }
   </script>
 </body>
